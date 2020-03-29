@@ -1,0 +1,27 @@
+version: "3"
+services:
+  accounts-service:
+    build: "./accounts-service"
+    depends_on:
+      - accounts-service-db
+    volumes:
+      - ./accounts-service:/opt/app
+
+  accounts-service-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+    image: mysql:5.7.20
+
+  settings-service:
+    build: "./settings-service"
+    depends_on:
+      - settings-service-db
+    volumes:
+      - ./settings-service:/opt/app
+
+  settings-service-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+    image: mysql:5.7.20
