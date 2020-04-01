@@ -4,6 +4,8 @@ services:
     build: "./accounts-service"
     depends_on:
       - accounts-service-db
+    environment:
+      - DB_URI=mysql://root:password@accounts-service-db/db?charset=UTF8
     volumes:
       - ./accounts-service:/opt/app
 
@@ -12,11 +14,15 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db
     image: mysql:5.7.20
+    ports:
+      - 0.0.0.0:7200:3306
 
   settings-service:
     build: "./settings-service"
     depends_on:
       - settings-service-db
+    environment:
+      - DB_URI=mysql://root:password@settings-service-db/db?charset=UTF8
     volumes:
       - ./settings-service:/opt/app
 
@@ -25,3 +31,5 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db
     image: mysql:5.7.20
+    ports:
+      - 0.0.0.0:7201:3306
