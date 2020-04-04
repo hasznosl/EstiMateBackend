@@ -1,11 +1,23 @@
 version: "3"
 services:
+  api-gateway:
+    build: "./api-gateway"
+    depends_on:
+      - accounts-service
+      - users-service
+    ports:
+      - 7000:7000
+    volumes:
+      - ./api-gateway:/opt/app
+
   accounts-service:
     build: "./accounts-service"
     depends_on:
       - accounts-service-db
     environment:
       - DB_URI=mysql://root:password@accounts-service-db/db?charset=UTF8
+    ports:
+      - 7100:7100
     volumes:
       - ./accounts-service:/opt/app
 
@@ -17,16 +29,18 @@ services:
     ports:
       - 0.0.0.0:7200:3306
 
-  settings-service:
-    build: "./settings-service"
+  users-service:
+    build: "./users-service"
     depends_on:
-      - settings-service-db
+      - users-service-db
     environment:
-      - DB_URI=mysql://root:password@settings-service-db/db?charset=UTF8
+      - DB_URI=mysql://root:password@users-service-db/db?charset=UTF8
+    ports:
+      - 7101:7101
     volumes:
-      - ./settings-service:/opt/app
+      - ./users-service:/opt/app
 
-  settings-service-db:
+  users-service-db:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=db

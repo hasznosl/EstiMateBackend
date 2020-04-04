@@ -1,4 +1,4 @@
 .vscode
 
-settings-service/node_modules
+users-service/node_modules
 accounts-service/node_modules
