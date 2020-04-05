@@ -23,6 +23,12 @@ app.use(
 // setup routes
 setupRoutes(app);
 
+app.use((err, req, res, next) => {
+  return res.status(500).json({
+    message: err.message,
+  });
+});
+
 app.listen(PORT, "0.0.0.0", () => {
   console.info(`Users service listening on ${PORT}`);
 });

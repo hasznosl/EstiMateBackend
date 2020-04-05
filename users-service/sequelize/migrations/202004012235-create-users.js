@@ -8,7 +8,7 @@ module.exports.up = (queryInterface, DataTypes) => {
         type: DataTypes.UUID,
       },
       name: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
       email: {
@@ -21,15 +21,15 @@ module.exports.up = (queryInterface, DataTypes) => {
         type: DataTypes.CHAR(64),
       },
       financial_goal_value: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING,
       },
       financial_goal_date: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DATE,
       },
       birth_day: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.DATE,
       },
       createdAt: {

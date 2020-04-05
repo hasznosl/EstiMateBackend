@@ -4,12 +4,21 @@ import cors from "cors";
 import express from "express";
 
 import { usersResolver } from "#root/graphql/resolvers/query/users";
+import { createUserResolver } from "#root/graphql/resolvers/mutation/createUser";
 import typeDefs from "#root/graphql/typeDefs";
 import accessEnv from "#root/helpers/accessEnv";
 
+import formatGraphQLErrors from "./formatGraphQLErrors";
+
 const PORT = accessEnv("PORT", 7000);
 const apolloServer = new ApolloServer({
-  resolvers: { Query: { users: usersResolver } },
+  formatError: formatGraphQLErrors,
+  resolvers: {
+    Query: { users: usersResolver },
+    Mutation: {
+      createUser: createUserResolver,
+    },
+  },
   typeDefs,
   playground: { version: "1.7.25" },
 });
