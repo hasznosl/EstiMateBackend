@@ -5,6 +5,7 @@ const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
+    birthDay: String!
   }
 
   type Query {

@@ -3,15 +3,15 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 
-import resolvers from "#root/graphql/resolvers";
+import { usersResolver } from "#root/graphql/resolvers/query/users";
 import typeDefs from "#root/graphql/typeDefs";
 import accessEnv from "#root/helpers/accessEnv";
 
 const PORT = accessEnv("PORT", 7000);
-
 const apolloServer = new ApolloServer({
-  resolvers,
+  resolvers: { Query: { users: usersResolver } },
   typeDefs,
+  playground: { version: "1.7.25" },
 });
 
 const app = express();
