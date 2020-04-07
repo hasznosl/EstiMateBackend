@@ -1,6 +1,8 @@
 import { gql } from "apollo-server";
 
 const typeDefs = gql`
+  scalar Date
+
   type User {
     id: ID!
     name: String
@@ -13,8 +15,22 @@ const typeDefs = gql`
     id: ID!
   }
 
+  type UserSession {
+    createdAt: Date!
+    expiresAt: Date!
+    id: ID!
+    user: User!
+  }
+
   type Mutation {
-    createUser(email: String!, password: String!): CreateUserResult!
+    createUser(
+      email: String!
+      password: String!
+    ): CreateUserResult!
+    createUserSession(
+      email: String!
+      password: String!
+    ): UserSession!
   }
 
   type Query {
