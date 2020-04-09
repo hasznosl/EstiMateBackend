@@ -56,6 +56,18 @@ const setupRoutes = (app) => {
     return res.json(users);
   });
 
+  app.get("/users/:userId", async (req, res, next) => {
+    try {
+      const user = await User.findByPk(req.params.userId);
+
+      if (!user) return next(new Error("Invalid user ID!"));
+
+      return res.json(user);
+    } catch (e) {
+      return next(e);
+    }
+  });
+
   app.post("/users", async (req, res, next) => {
     if (!req.body.email || !req.body.password) {
       return next(new Error("Email or Password missing!"));
@@ -73,6 +85,24 @@ const setupRoutes = (app) => {
       return next(e);
     }
   });
+
+  app.get(
+    "/sessions/:sessionId",
+    async (req, res, next) => {
+      try {
+        const userSession = await UserSession.findByPk(
+          req.params.sessionId
+        );
+
+        if (!userSession)
+          return next(new Error("Invalid session ID!"));
+
+        return res.json(userSession);
+      } catch (e) {
+        return next(e);
+      }
+    }
+  );
 };
 
 export default setupRoutes;

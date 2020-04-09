@@ -8,8 +8,11 @@ import createUserResolver from "#root/graphql/resolvers/mutation/createUser";
 import createUserSessionResolver from "#root/graphql/resolvers/mutation/createUserSession";
 import typeDefs from "#root/graphql/typeDefs";
 import accessEnv from "#root/helpers/accessEnv";
+import UserSession from "#root/graphql/resolvers/UserSession";
 
 import formatGraphQLErrors from "./formatGraphQLErrors";
+import injectSession from "./injectSession";
+import userSessionResolver from "../graphql/resolvers/query/userSession";
 
 const PORT = accessEnv("PORT", 7000);
 const apolloServer = new ApolloServer({
@@ -18,11 +21,13 @@ const apolloServer = new ApolloServer({
   resolvers: {
     Query: {
       users: usersResolver,
+      userSession: userSessionResolver,
     },
     Mutation: {
       createUser: createUserResolver,
       createUserSession: createUserSessionResolver,
     },
+    UserSession,
   },
   typeDefs,
   playground: {
@@ -40,6 +45,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(injectSession);
 
 apolloServer.applyMiddleware({
   app,

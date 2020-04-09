@@ -1,7 +1,6 @@
 import { fetchAllUsers } from "#root/adapters/usersService";
 
 const usersResolver = async () => {
-  // TODO:  this mapping should be done in separate resolver
   return (await fetchAllUsers()).map((rawUser) => ({
     id: rawUser.id,
     name: rawUser.name,
