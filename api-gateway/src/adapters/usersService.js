@@ -34,6 +34,14 @@ export const createUserSession = async ({
   return body;
 };
 
+export const deleteUserSession = async ({ sessionId }) => {
+  const body = await got
+    .delete(`${USERS_SERVICE_URI}/sessions/${sessionId}`)
+    .json();
+
+  return body;
+};
+
 export const fetchUser = async ({ userId }) => {
   const body = await got
     .get(`${USERS_SERVICE_URI}/users/${userId}`)

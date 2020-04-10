@@ -27,10 +27,13 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): CreateUserResult!
+
     createUserSession(
       email: String!
       password: String!
     ): UserSession!
+
+    deleteUserSession(sessionId: ID!): Boolean!
   }
 
   type Query {

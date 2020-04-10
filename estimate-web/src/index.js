@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import graphqlClient from "#root/api/graphqlClient";
-import Root from "#root/components/root/Root";
+import Root from "./components/Root";
 
 import * as theme from "./theme";
 

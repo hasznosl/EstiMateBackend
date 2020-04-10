@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import graphqlClient from "#root/api/graphqlClient";
 import { setSession } from "#root/store/ducks/session";
-import AccountDetails from "../AccountDetails";
+import AccountDetails from "./AccountDetails";
 
 const Container = styled.div`
   display: flex;

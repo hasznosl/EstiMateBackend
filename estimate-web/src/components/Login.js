@@ -3,7 +3,10 @@ import gql from "graphql-tag";
 import React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { get } from "lodash";
 
+import { setSession } from "#root/store/ducks/session";
 import TextInput from "#root/components/shared/TextInput";
 
 const Label = styled.label`
@@ -12,6 +15,10 @@ const Label = styled.label`
   :not(:first-child) {
     margin-top: 0.75rem;
   }
+`;
+
+const OrSignUp = styled.span`
+  font-size: 0.9rem;
 `;
 
 const LabelText = styled.strong`
@@ -25,7 +32,7 @@ const LoginButton = styled.button`
   margin-top: 0.5rem;
 `;
 
-const createUserSessionMutation = gql`
+export const createUserSessionMutation = gql`
   mutation($email: String!, $password: String!) {
     createUserSession(email: $email, password: $password) {
       id
@@ -37,10 +44,11 @@ const createUserSessionMutation = gql`
   }
 `;
 
-const Login = () => {
+const Login = ({ changeToSignUp }) => {
   const [createUserSession] = useMutation(
     createUserSessionMutation
   );
+  const dispatch = useDispatch();
   const {
     formState: { isSubmitting },
     handleSubmit,
@@ -52,7 +60,9 @@ const Login = () => {
       const result = await createUserSession({
         variables: { email, password },
       });
-      console.log({ result });
+      if (get(result, "data.createUserSession.id")) {
+        dispatch(setSession(result.data.createUserSession));
+      }
     }
   );
 
@@ -78,7 +88,19 @@ const Login = () => {
       </Label>
       <LoginButton type="submit" disabled={isSubmitting}>
         Login
-      </LoginButton>
+      </LoginButton>{" "}
+      <OrSignUp>
+        or{" "}
+        <a
+          href="#"
+          onClick={(evt) => {
+            evt.preventDefault();
+            changeToSignUp();
+          }}
+        >
+          Sign Up
+        </a>
+      </OrSignUp>
     </form>
   );
 };
