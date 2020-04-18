@@ -9,7 +9,7 @@ User.init(
     id: {
       allowNull: false,
       primaryKey: true,
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
     },
     name: {
       allowNull: true,
@@ -71,7 +71,7 @@ UserSession.init(
     },
   },
   {
-    modelName: "userSessions",
+    modelName: "UserSession",
     paranoid: false,
     sequelize,
     updatedAt: false,

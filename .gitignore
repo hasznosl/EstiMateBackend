@@ -7,3 +7,5 @@ estimate-web/node_modules
 
 
 estimate-web/.cache
+estimate-web/dist
+estimate-web/yarn-error.log

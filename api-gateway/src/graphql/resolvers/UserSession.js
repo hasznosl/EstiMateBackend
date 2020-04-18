@@ -1,7 +1,7 @@
 import { fetchUser } from "#root/adapters/usersService";
 
 const UserSession = {
-  // userSession: contextualObject
+  // userSession: contextual object
   user: async (userSession) => {
     return await fetchUser({
       userId: userSession.userId,

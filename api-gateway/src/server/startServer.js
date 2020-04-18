@@ -14,6 +14,7 @@ import UserSession from "#root/graphql/resolvers/UserSession";
 import formatGraphQLErrors from "./formatGraphQLErrors";
 import injectSession from "./injectSession";
 import userSessionResolver from "../graphql/resolvers/query/userSession";
+import userAccountsResolver from "../graphql/resolvers/query/userAccounts";
 
 const PORT = accessEnv("PORT", 7000);
 const apolloServer = new ApolloServer({
@@ -23,6 +24,7 @@ const apolloServer = new ApolloServer({
     Query: {
       users: usersResolver,
       userSession: userSessionResolver,
+      userAccounts: userAccountsResolver,
     },
     Mutation: {
       createUser: createUserResolver,

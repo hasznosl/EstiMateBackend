@@ -22,6 +22,29 @@ const typeDefs = gql`
     user: User!
   }
 
+  type Transaction {
+    id: ID!
+    accountId: ID!
+    name: String!
+    currency: String!
+    currencyDefaultExchangeRate: String!
+    description: String!
+    date: Date!
+    value: String!
+    createdAt: Date!
+  }
+
+  type UserAccount {
+    id: ID!
+    name: String!
+    currency: String!
+    currencyDefaultExchangeRate: String!
+    transactions: [Transaction!]!
+    description: String
+    deteriorationConstant: String!
+    createdAt: Date!
+  }
+
   type Mutation {
     createUser(
       email: String!
@@ -39,6 +62,7 @@ const typeDefs = gql`
   type Query {
     users: [User!]!
     userSession(me: Boolean!): UserSession
+    userAccounts(userId: ID!): [UserAccount!]!
   }
 `;
 
