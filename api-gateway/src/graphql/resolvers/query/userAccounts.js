@@ -1,4 +1,4 @@
-import { fetchUserAccounts } from "#root/adapters/accountsService";
+import { fetchUserAccounts } from "../../../adapters/accountsService";
 
 const userAccountsResolver = async (
   obj,
@@ -6,11 +6,18 @@ const userAccountsResolver = async (
   context
 ) => {
   return (await fetchUserAccounts({ userId })).map(
-    (rawUser) => ({
-      id: rawUser.id,
-      name: rawUser.name,
-      email: rawUser.email,
-      birthDay: rawUser.birth_day,
+    (rawUserAccount) => ({
+      id: rawUserAccount.id,
+      userId: rawUserAccount.userId,
+      name: rawUserAccount.name,
+      description: rawUserAccount.description,
+      birthDay: rawUserAccount.birth_day,
+      currency: rawUserAccount.currency,
+      currencyDefaultExchangeRate:
+        rawUserAccount.currency_default_exchange_rate,
+      description: rawUserAccount.description,
+      deteriorationConstant:
+        rawUserAccount.deterioration_constant,
     })
   );
 };

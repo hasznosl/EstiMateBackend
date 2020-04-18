@@ -71,7 +71,7 @@ UserSession.init(
     },
   },
   {
-    modelName: "UserSession",
+    modelName: "userSessions",
     paranoid: false,
     sequelize,
     updatedAt: false,

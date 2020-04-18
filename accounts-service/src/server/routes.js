@@ -1,4 +1,5 @@
 import { Account, Transaction } from "../db/models";
+import generateUUID from "../helpers/generateUUID";
 
 const requiredBodyParamChecker = ({
   body,
@@ -42,25 +43,27 @@ const requiredBodyParamsChecker = ({
 // checked against the user session later
 // either here or in the api gateway
 const setupRoutes = (app) => {
-  app.get("/users/:userId/accounts", (req, res, next) => {
-    try {
-      const accounts = Account.findAll({
-        where: {
-          userId: req.params.userId,
-        },
-      });
-
-      return res.json(accounts);
-    } catch (e) {
-      return next(e);
+  app.get(
+    "/users/:userId/accounts",
+    async (req, res, next) => {
+      try {
+        const accounts = await Account.findAll({
+          where: {
+            userId: req.params.userId,
+          },
+        });
+        return res.json(accounts);
+      } catch (e) {
+        return next(e);
+      }
     }
-  });
+  );
 
   app.get(
     "/accounts/:accountId/transactions",
-    (req, res, next) => {
+    async (req, res, next) => {
       try {
-        const transactions = Transaction.findAll({
+        const transactions = await Transaction.findAll({
           where: {
             accountId: req.params.accountId,
           },
@@ -98,7 +101,7 @@ const setupRoutes = (app) => {
           "userId",
           "currency",
           "deterioration_constant",
-          "descritpion",
+          "description",
           "currency_default_exchange_rate",
         ],
         url: accountsUrl,
@@ -128,13 +131,21 @@ const setupRoutes = (app) => {
   app.post(
     transactionsUrl,
     async (
-      { body: { accountId, name, description }, body }, // req
+      {
+        body: { accountId, date, description, value },
+        body,
+      }, // req
       res,
       next
     ) => {
       requiredBodyParamsChecker({
         body,
-        paramNames: ["name", "accountId", "descritpion"],
+        paramNames: [
+          "date",
+          "accountId",
+          "descritpion",
+          "value",
+        ],
         url: transactionsUrl,
         method: "POST",
         next,
@@ -148,9 +159,10 @@ const setupRoutes = (app) => {
       try {
         const newTransaction = await Transaction.create({
           id: generateUUID(),
-          name,
+          date,
           accountId,
           description,
+          value,
           currency,
           currency_default_exchange_rate,
         });

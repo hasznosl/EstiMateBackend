@@ -38,7 +38,7 @@ Account.init(
     },
   },
   {
-    modelName: "Account",
+    modelName: "accounts",
     paranoid: false,
     sequelize,
     updatedAt: false,
@@ -62,7 +62,11 @@ Transaction.init(
       },
       type: DataTypes.UUID,
     },
-    name: {
+    date: {
+      allowNull: false,
+      type: DataTypes.DATE,
+    },
+    value: {
       allowNull: false,
       type: DataTypes.STRING,
     },
@@ -78,21 +82,9 @@ Transaction.init(
       allowNull: false,
       type: DataTypes.TEXT,
     },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE,
-    },
-    deletedAt: {
-      allowNull: true,
-      type: DataTypes.DATE,
-    },
   },
   {
-    modelName: "Transaction",
+    modelName: "transactions",
     paranoid: false,
     sequelize,
     updatedAt: false,
