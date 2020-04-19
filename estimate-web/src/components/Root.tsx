@@ -87,15 +87,18 @@ const Root = () => {
   }, []);
 
   useEffect(() => {
-    graphqlClient
-      .query({
-        query: getAccountsQuery,
-      })
-      .then(({ data }) => {
-        if (data.userAccounts) {
-          setAccounts(data.userAccounts);
-        }
-      });
+    if (session && session.user) {
+      graphqlClient
+        .query({
+          query: getAccountsQuery,
+          variables: { userId: session.user.id },
+        })
+        .then(({ data }) => {
+          if (data.userAccounts) {
+            setAccounts(data.userAccounts);
+          }
+        });
+    }
   }, [session]);
 
   if (!initialized) return "Loading...";

@@ -7,7 +7,7 @@
     "db:migrate": "sequelize db:migrate",
     "db:migrate:undo": "sequelize db:migrate:undo",
     "db:migrate:undo:all": "sequelize db:migrate:undo:all",
-    "watch": " babel-watch -L  src/index.js"
+    "watch": "babel-watch -L  src/index.js"
   },
   "devDependencies": {
     "babel-watch": "^7.0.0"
