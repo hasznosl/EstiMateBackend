@@ -13,7 +13,6 @@ Account.init(
     },
     userId: {
       allowNull: false,
-      primaryKey: false,
       type: DataTypes.UUID,
     },
     name: {
