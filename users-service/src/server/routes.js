@@ -1,9 +1,9 @@
 import { addHours } from "date-fns";
 
-import { User, UserSession } from "#root/db/models";
-import generateUUID from "#root/helpers/generateUUID";
-import hashPassword from "#root/helpers/hashPassword";
-import passwordCompareSync from "#root/helpers/passwordCompareSync";
+import { User, UserSession } from "../db/models";
+import generateUUID from "../helpers/generateUUID";
+import hashPassword from "../helpers/hashPassword";
+import passwordCompareSync from "../helpers/passwordCompareSync";
 
 const USER_SESSION_EXPIRY_HOURS = 1;
 

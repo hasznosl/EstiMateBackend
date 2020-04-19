@@ -5,45 +5,50 @@ module.exports.up = (queryInterface, DataTypes) => {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: DataTypes.UUID
+        type: DataTypes.UUID,
+      },
+      userId: {
+        allowNull: false,
+        type: DataTypes.UUID,
       },
       name: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       currency: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       currency_default_exchange_rate: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       description: {
         allowNull: false,
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
       },
       deterioration_constant: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE
+        type: DataTypes.DATE,
       },
       updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE
+        allowNull: true,
+        type: DataTypes.DATE,
       },
       deletedAt: {
         allowNull: true,
-        type: DataTypes.DATE
-      }
+        type: DataTypes.DATE,
+      },
     },
     {
-      charset: "utf8"
+      charset: "utf8",
     }
   );
 };
 
-module.exports.down = queryInterface => queryInterface.dropTable("accounts");
+module.exports.down = (queryInterface) =>
+  queryInterface.dropTable("accounts");

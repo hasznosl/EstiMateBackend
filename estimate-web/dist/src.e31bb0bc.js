@@ -53130,16 +53130,20 @@ var _shallowEqual = _interopRequireDefault(require("./utils/shallowEqual"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _batch.setBatch)(_reactBatchedUpdates.unstable_batchedUpdates);
-},{"./components/Provider":"../node_modules/react-redux/es/components/Provider.js","./components/connectAdvanced":"../node_modules/react-redux/es/components/connectAdvanced.js","./components/Context":"../node_modules/react-redux/es/components/Context.js","./connect/connect":"../node_modules/react-redux/es/connect/connect.js","./hooks/useDispatch":"../node_modules/react-redux/es/hooks/useDispatch.js","./hooks/useSelector":"../node_modules/react-redux/es/hooks/useSelector.js","./hooks/useStore":"../node_modules/react-redux/es/hooks/useStore.js","./utils/batch":"../node_modules/react-redux/es/utils/batch.js","./utils/reactBatchedUpdates":"../node_modules/react-redux/es/utils/reactBatchedUpdates.js","./utils/shallowEqual":"../node_modules/react-redux/es/utils/shallowEqual.js"}],"store/ducks/session.js":[function(require,module,exports) {
+},{"./components/Provider":"../node_modules/react-redux/es/components/Provider.js","./components/connectAdvanced":"../node_modules/react-redux/es/components/connectAdvanced.js","./components/Context":"../node_modules/react-redux/es/components/Context.js","./connect/connect":"../node_modules/react-redux/es/connect/connect.js","./hooks/useDispatch":"../node_modules/react-redux/es/hooks/useDispatch.js","./hooks/useSelector":"../node_modules/react-redux/es/hooks/useSelector.js","./hooks/useStore":"../node_modules/react-redux/es/hooks/useStore.js","./utils/batch":"../node_modules/react-redux/es/utils/batch.js","./utils/reactBatchedUpdates":"../node_modules/react-redux/es/utils/reactBatchedUpdates.js","./utils/shallowEqual":"../node_modules/react-redux/es/utils/shallowEqual.js"}],"store/ducks/session.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
-});
-exports.clearSession = exports.setSession = exports.default = void 0;
-// actions
-var CLEAR = "session/CLEAR";
-var SET = "session/SET";
+}); // types
+
+var SessionActionType;
+
+(function (SessionActionType) {
+  SessionActionType["CLEAR"] = "session/CLEAR";
+  SessionActionType["SET"] = "session/SET";
+})(SessionActionType = exports.SessionActionType || (exports.SessionActionType = {}));
+
 var DEFAULT_STATE = null; // reducer
 
 var sessionReducer = function sessionReducer() {
@@ -53147,73 +53151,65 @@ var sessionReducer = function sessionReducer() {
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   switch (action.type) {
-    case SET:
+    case SessionActionType.SET:
       return action.session;
 
-    case CLEAR:
+    case SessionActionType.CLEAR:
       return null;
   }
 
   return state;
 };
 
-var _default = sessionReducer; // action creators
+exports.default = sessionReducer; // action creators
 
-exports.default = _default;
-
-var setSession = function setSession(session) {
+exports.setSession = function (session) {
   return {
     session: session,
-    type: SET
+    type: SessionActionType.SET
   };
 };
 
-exports.setSession = setSession;
-
-var clearSession = function clearSession() {
+exports.clearSession = function () {
   return {
-    type: CLEAR
+    type: SessionActionType.CLEAR
   };
 };
-
-exports.clearSession = clearSession;
-},{}],"store/ducks/index.js":[function(require,module,exports) {
+},{}],"store/ducks/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-Object.defineProperty(exports, "session", {
-  enumerable: true,
-  get: function () {
-    return _session.default;
+
+var session_1 = require("./session");
+
+exports.session = session_1.default;
+},{"./session":"store/ducks/session.ts"}],"store/index.ts":[function(require,module,exports) {
+"use strict";
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
   }
-});
-
-var _session = _interopRequireDefault(require("./session"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./session":"store/ducks/session.js"}],"store/index.js":[function(require,module,exports) {
-"use strict";
+  result["default"] = mod;
+  return result;
+};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
 
-var _redux = require("redux");
+var redux_1 = require("redux");
 
-var ducks = _interopRequireWildcard(require("./ducks"));
+var ducks = __importStar(require("./ducks"));
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var reducers = (0, _redux.combineReducers)(ducks);
-var store = (0, _redux.createStore)(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-var _default = store;
-exports.default = _default;
-},{"redux":"../node_modules/redux/es/redux.js","./ducks":"store/ducks/index.js"}],"../node_modules/graphql/language/blockString.js":[function(require,module,exports) {
+var reducers = redux_1.combineReducers(ducks);
+var store = redux_1.createStore(reducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+exports.default = store;
+},{"redux":"../node_modules/redux/es/redux.js","./ducks":"store/ducks/index.ts"}],"../node_modules/graphql/language/blockString.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -80954,17 +80950,8 @@ var define;
   }
 }.call(this));
 
-},{"buffer":"../node_modules/buffer/index.js"}],"components/shared/TextInput.js":[function(require,module,exports) {
+},{"buffer":"../node_modules/buffer/index.js"}],"components/shared/TextInput.ts":[function(require,module,exports) {
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\nborder: 1px solid ", "\n  box-sizing: border-box;\n  display: block;\n  font-size: 0.9rem;\n  padding: 0.25rem;\n  width: 100%;\n"]);
@@ -80978,43 +80965,24 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var TextInput = _styledComponents.default.input(_templateObject(), function (props) {
-  return props.theme.veryLightGrey;
-});
-
-var _default = TextInput;
-exports.default = _default;
-},{"styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/Login.js":[function(require,module,exports) {
-"use strict";
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.createUserSessionMutation = void 0;
 
-var _reactHooks = require("@apollo/react-hooks");
+var styled_components_1 = __importDefault(require("styled-components"));
 
-var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _reactHookForm = require("react-hook-form");
-
-var _reactRedux = require("react-redux");
-
-var _lodash = require("lodash");
-
-var _session = require("#root/store/ducks/session");
-
-var _TextInput = _interopRequireDefault(require("#root/components/shared/TextInput"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+var TextInput = styled_components_1.default.input(_templateObject(), function (props) {
+  return props.theme.veryLightGrey;
+});
+exports.default = TextInput;
+},{"styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js"}],"components/Login.tsx":[function(require,module,exports) {
+"use strict";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -81080,40 +81048,96 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Label = _styledComponents.default.label(_templateObject());
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
 
-var OrSignUp = _styledComponents.default.span(_templateObject2());
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
 
-var LabelText = _styledComponents.default.strong(_templateObject3());
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
 
-var LoginButton = _styledComponents.default.button(_templateObject4());
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
 
-var createUserSessionMutation = (0, _graphqlTag.default)(_templateObject5());
-exports.createUserSessionMutation = createUserSessionMutation;
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_hooks_1 = require("@apollo/react-hooks");
+
+var graphql_tag_1 = __importDefault(require("graphql-tag"));
+
+var react_1 = __importDefault(require("react"));
+
+var styled_components_1 = __importDefault(require("styled-components"));
+
+var react_hook_form_1 = require("react-hook-form");
+
+var react_redux_1 = require("react-redux");
+
+var lodash_1 = require("lodash");
+
+var session_1 = require("../store/ducks/session");
+
+var TextInput_1 = __importDefault(require("../components/shared/TextInput"));
+
+var Label = styled_components_1.default.label(_templateObject());
+var OrSignUp = styled_components_1.default.span(_templateObject2());
+var LabelText = styled_components_1.default.strong(_templateObject3());
+var LoginButton = styled_components_1.default.button(_templateObject4());
+exports.createUserSessionMutation = graphql_tag_1.default(_templateObject5());
 
 var Login = function Login(_ref) {
   var changeToSignUp = _ref.changeToSignUp;
 
-  var _useMutation = (0, _reactHooks.useMutation)(createUserSessionMutation),
-      _useMutation2 = _slicedToArray(_useMutation, 1),
-      createUserSession = _useMutation2[0];
+  var _react_hooks_1$useMut = react_hooks_1.useMutation(exports.createUserSessionMutation),
+      _react_hooks_1$useMut2 = _slicedToArray(_react_hooks_1$useMut, 1),
+      createUserSession = _react_hooks_1$useMut2[0];
 
-  var dispatch = (0, _reactRedux.useDispatch)();
+  var dispatch = react_redux_1.useDispatch();
 
-  var _useForm = (0, _reactHookForm.useForm)(),
-      isSubmitting = _useForm.formState.isSubmitting,
-      handleSubmit = _useForm.handleSubmit,
-      register = _useForm.register;
+  var _react_hook_form_1$us = react_hook_form_1.useForm(),
+      isSubmitting = _react_hook_form_1$us.formState.isSubmitting,
+      handleSubmit = _react_hook_form_1$us.handleSubmit,
+      register = _react_hook_form_1$us.register;
 
-  var onSubmit = handleSubmit( /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2) {
-      var email, password, result;
+  var onSubmit = handleSubmit(function (_ref2) {
+    var email = _ref2.email,
+        password = _ref2.password;
+    return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var result;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              email = _ref2.email, password = _ref2.password;
-              _context.next = 3;
+              _context.next = 2;
               return createUserSession({
                 variables: {
                   email: email,
@@ -81121,41 +81145,37 @@ var Login = function Login(_ref) {
                 }
               });
 
-            case 3:
+            case 2:
               result = _context.sent;
 
-              if ((0, _lodash.get)(result, "data.createUserSession.id")) {
-                dispatch((0, _session.setSession)(result.data.createUserSession));
+              if (lodash_1.get(result, "data.createUserSession.id")) {
+                dispatch(session_1.setSession(result.data.createUserSession));
               }
 
-            case 5:
+            case 4:
             case "end":
               return _context.stop();
           }
         }
       }, _callee);
     }));
-
-    return function (_x) {
-      return _ref3.apply(this, arguments);
-    };
-  }());
-  return /*#__PURE__*/_react.default.createElement("form", {
+  });
+  return react_1.default.createElement("form", {
     onSubmit: onSubmit
-  }, /*#__PURE__*/_react.default.createElement(Label, null, /*#__PURE__*/_react.default.createElement(LabelText, null, "Email"), /*#__PURE__*/_react.default.createElement(_TextInput.default, {
+  }, react_1.default.createElement(Label, null, react_1.default.createElement(LabelText, null, "Email"), react_1.default.createElement(TextInput_1.default, {
     disabled: isSubmitting,
     name: "email",
     type: "email",
     ref: register
-  })), /*#__PURE__*/_react.default.createElement(Label, null, /*#__PURE__*/_react.default.createElement(LabelText, null, "Password"), /*#__PURE__*/_react.default.createElement(_TextInput.default, {
+  })), react_1.default.createElement(Label, null, react_1.default.createElement(LabelText, null, "Password"), react_1.default.createElement(TextInput_1.default, {
     disabled: isSubmitting,
     name: "password",
     type: "password",
     ref: register
-  })), /*#__PURE__*/_react.default.createElement(LoginButton, {
+  })), react_1.default.createElement(LoginButton, {
     type: "submit",
     disabled: isSubmitting
-  }, "Login"), " ", /*#__PURE__*/_react.default.createElement(OrSignUp, null, "or", " ", /*#__PURE__*/_react.default.createElement("a", {
+  }, "Login"), " ", react_1.default.createElement(OrSignUp, null, "or", " ", react_1.default.createElement("a", {
     href: "#",
     onClick: function onClick(evt) {
       evt.preventDefault();
@@ -81164,29 +81184,9 @@ var Login = function Login(_ref) {
   }, "Sign Up")));
 };
 
-var _default = Login;
-exports.default = _default;
-},{"@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","react-hook-form":"../node_modules/react-hook-form/dist/react-hook-form.es.js","react-redux":"../node_modules/react-redux/es/index.js","lodash":"../node_modules/lodash/lodash.js","#root/store/ducks/session":"store/ducks/session.js","#root/components/shared/TextInput":"components/shared/TextInput.js"}],"components/Account.js":[function(require,module,exports) {
+exports.default = Login;
+},{"@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","react-hook-form":"../node_modules/react-hook-form/dist/react-hook-form.es.js","react-redux":"../node_modules/react-redux/es/index.js","lodash":"../node_modules/lodash/lodash.js","../store/ducks/session":"store/ducks/session.ts","../components/shared/TextInput":"components/shared/TextInput.ts"}],"components/Account.tsx":[function(require,module,exports) {
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _reactHooks = require("@apollo/react-hooks");
-
-var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactRedux = require("react-redux");
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _session = require("#root/store/ducks/session");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -81242,33 +81242,52 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Email = _styledComponents.default.div(_templateObject(), function (props) {
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_hooks_1 = require("@apollo/react-hooks");
+
+var graphql_tag_1 = __importDefault(require("graphql-tag"));
+
+var react_1 = __importDefault(require("react"));
+
+var react_redux_1 = require("react-redux");
+
+var styled_components_1 = __importDefault(require("styled-components"));
+
+var session_1 = require("../store/ducks/session");
+
+var Email = styled_components_1.default.div(_templateObject(), function (props) {
   return props.theme.nero;
 });
-
-var LogoutLink = _styledComponents.default.a.attrs({
+var LogoutLink = styled_components_1.default.a.attrs({
   href: "#"
 })(_templateObject2());
-
-var Container = _styledComponents.default.div(_templateObject3(), function (props) {
+var Container = styled_components_1.default.div(_templateObject3(), function (props) {
   return props.theme.mortar;
 });
-
-var deleteSessionMutation = (0, _graphqlTag.default)(_templateObject4());
+var deleteSessionMutation = graphql_tag_1.default(_templateObject4());
 
 var Account = function Account() {
-  var _useMutation = (0, _reactHooks.useMutation)(deleteSessionMutation),
-      _useMutation2 = _slicedToArray(_useMutation, 1),
-      deleteUserSession = _useMutation2[0];
+  var _react_hooks_1$useMut = react_hooks_1.useMutation(deleteSessionMutation),
+      _react_hooks_1$useMut2 = _slicedToArray(_react_hooks_1$useMut, 1),
+      deleteUserSession = _react_hooks_1$useMut2[0];
 
-  var dispatch = (0, _reactRedux.useDispatch)();
-  var session = (0, _reactRedux.useSelector)(function (state) {
+  var dispatch = react_redux_1.useDispatch();
+  var session = react_redux_1.useSelector(function (state) {
     return state.session;
   });
-  return /*#__PURE__*/_react.default.createElement(Container, null, "Logged in as ", /*#__PURE__*/_react.default.createElement(Email, null, session.user.email), /*#__PURE__*/_react.default.createElement(LogoutLink, {
+  return react_1.default.createElement(Container, null, "Logged in as ", react_1.default.createElement(Email, null, session.user.email), react_1.default.createElement(LogoutLink, {
     onClick: function onClick(evt) {
       evt.preventDefault();
-      dispatch((0, _session.clearSession)());
+      dispatch(session_1.clearSession());
       deleteUserSession({
         variables: {
           sessionId: session.id
@@ -81278,9 +81297,8 @@ var Account = function Account() {
   }, "(Logout)"));
 };
 
-var _default = Account;
-exports.default = _default;
-},{"@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","#root/store/ducks/session":"store/ducks/session.js"}],"../node_modules/lodash-es/_baseHas.js":[function(require,module,exports) {
+exports.default = Account;
+},{"@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","../store/ducks/session":"store/ducks/session.ts"}],"../node_modules/lodash-es/_baseHas.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91704,45 +91722,8 @@ function addMethod(schemaType, name, fn) {
   if (typeof fn !== 'function') throw new TypeError('Method function must be provided');
   schemaType.prototype[name] = fn;
 }
-},{"./mixed":"../node_modules/yup/es/mixed.js","./boolean":"../node_modules/yup/es/boolean.js","./string":"../node_modules/yup/es/string.js","./number":"../node_modules/yup/es/number.js","./date":"../node_modules/yup/es/date.js","./object":"../node_modules/yup/es/object.js","./array":"../node_modules/yup/es/array.js","./Reference":"../node_modules/yup/es/Reference.js","./Lazy":"../node_modules/yup/es/Lazy.js","./ValidationError":"../node_modules/yup/es/ValidationError.js","./util/reach":"../node_modules/yup/es/util/reach.js","./util/isSchema":"../node_modules/yup/es/util/isSchema.js","./setLocale":"../node_modules/yup/es/setLocale.js"}],"components/SignUp.js":[function(require,module,exports) {
+},{"./mixed":"../node_modules/yup/es/mixed.js","./boolean":"../node_modules/yup/es/boolean.js","./string":"../node_modules/yup/es/string.js","./number":"../node_modules/yup/es/number.js","./date":"../node_modules/yup/es/date.js","./object":"../node_modules/yup/es/object.js","./array":"../node_modules/yup/es/array.js","./Reference":"../node_modules/yup/es/Reference.js","./Lazy":"../node_modules/yup/es/Lazy.js","./ValidationError":"../node_modules/yup/es/ValidationError.js","./util/reach":"../node_modules/yup/es/util/reach.js","./util/isSchema":"../node_modules/yup/es/util/isSchema.js","./setLocale":"../node_modules/yup/es/setLocale.js"}],"components/SignUp.tsx":[function(require,module,exports) {
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _reactHooks = require("@apollo/react-hooks");
-
-var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
-
-var _react = _interopRequireDefault(require("react"));
-
-var _styledComponents = _interopRequireDefault(require("styled-components"));
-
-var _reactHookForm = require("react-hook-form");
-
-var _reactRedux = require("react-redux");
-
-var _lodash = require("lodash");
-
-var yup = _interopRequireWildcard(require("yup"));
-
-var _session = require("#root/store/ducks/session");
-
-var _TextInput = _interopRequireDefault(require("#root/components/shared/TextInput"));
-
-var _Login = require("./Login");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -91808,15 +91789,85 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Label = _styledComponents.default.label(_templateObject());
+var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, generator) {
+  function adopt(value) {
+    return value instanceof P ? value : new P(function (resolve) {
+      resolve(value);
+    });
+  }
 
-var OrLogin = _styledComponents.default.span(_templateObject2());
+  return new (P || (P = Promise))(function (resolve, reject) {
+    function fulfilled(value) {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    }
 
-var LabelText = _styledComponents.default.strong(_templateObject3());
+    function rejected(value) {
+      try {
+        step(generator["throw"](value));
+      } catch (e) {
+        reject(e);
+      }
+    }
 
-var SignUpButton = _styledComponents.default.button(_templateObject4());
+    function step(result) {
+      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+    }
 
-var createUserMutation = (0, _graphqlTag.default)(_templateObject5());
+    step((generator = generator.apply(thisArg, _arguments || [])).next());
+  });
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_hooks_1 = require("@apollo/react-hooks");
+
+var graphql_tag_1 = __importDefault(require("graphql-tag"));
+
+var react_1 = __importDefault(require("react"));
+
+var styled_components_1 = __importDefault(require("styled-components"));
+
+var react_hook_form_1 = require("react-hook-form");
+
+var react_redux_1 = require("react-redux");
+
+var lodash_1 = require("lodash");
+
+var yup = __importStar(require("yup"));
+
+var session_1 = require("../store/ducks/session");
+
+var TextInput_1 = __importDefault(require("../components/shared/TextInput"));
+
+var Login_1 = require("./Login");
+
+var Label = styled_components_1.default.label(_templateObject());
+var OrLogin = styled_components_1.default.span(_templateObject2());
+var LabelText = styled_components_1.default.strong(_templateObject3());
+var SignUpButton = styled_components_1.default.button(_templateObject4());
+var createUserMutation = graphql_tag_1.default(_templateObject5());
 var validationSchema = yup.object().shape({
   email: yup.string().email().required(),
   password: yup.string().required().test("sameAsConfirmPassword", "${path} is not the same as the confirmation password.", function () {
@@ -91827,36 +91878,37 @@ var validationSchema = yup.object().shape({
 var SignUp = function SignUp(_ref) {
   var changeToLogIn = _ref.changeToLogIn;
 
-  var _useMutation = (0, _reactHooks.useMutation)(createUserMutation),
-      _useMutation2 = _slicedToArray(_useMutation, 1),
-      createUser = _useMutation2[0];
+  var _react_hooks_1$useMut = react_hooks_1.useMutation(createUserMutation),
+      _react_hooks_1$useMut2 = _slicedToArray(_react_hooks_1$useMut, 1),
+      createUser = _react_hooks_1$useMut2[0];
 
-  var _useMutation3 = (0, _reactHooks.useMutation)(_Login.createUserSessionMutation),
-      _useMutation4 = _slicedToArray(_useMutation3, 1),
-      createUserSession = _useMutation4[0];
+  var _react_hooks_1$useMut3 = react_hooks_1.useMutation(Login_1.createUserSessionMutation),
+      _react_hooks_1$useMut4 = _slicedToArray(_react_hooks_1$useMut3, 1),
+      createUserSession = _react_hooks_1$useMut4[0];
 
-  var dispatch = (0, _reactRedux.useDispatch)();
+  var dispatch = react_redux_1.useDispatch();
 
-  var _useForm = (0, _reactHookForm.useForm)({
+  var _react_hook_form_1$us = react_hook_form_1.useForm({
     mode: "onChange",
     validationSchema: validationSchema
   }),
-      _useForm$formState = _useForm.formState,
-      isSubmitting = _useForm$formState.isSubmitting,
-      isValid = _useForm$formState.isValid,
-      handleSubmit = _useForm.handleSubmit,
-      register = _useForm.register,
-      reset = _useForm.reset;
+      _react_hook_form_1$us2 = _react_hook_form_1$us.formState,
+      isSubmitting = _react_hook_form_1$us2.isSubmitting,
+      isValid = _react_hook_form_1$us2.isValid,
+      handleSubmit = _react_hook_form_1$us.handleSubmit,
+      register = _react_hook_form_1$us.register,
+      reset = _react_hook_form_1$us.reset;
 
-  var onSubmit = handleSubmit( /*#__PURE__*/function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(_ref2) {
-      var email, password, signUpResult, logInResult;
+  var onSubmit = handleSubmit(function (_ref2) {
+    var email = _ref2.email,
+        password = _ref2.password;
+    return __awaiter(void 0, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var signUpResult, logInResult;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              email = _ref2.email, password = _ref2.password;
-              _context.next = 3;
+              _context.next = 2;
               return createUser({
                 variables: {
                   email: email,
@@ -91864,16 +91916,16 @@ var SignUp = function SignUp(_ref) {
                 }
               });
 
-            case 3:
+            case 2:
               signUpResult = _context.sent;
               reset();
 
-              if (!(0, _lodash.get)(signUpResult, "data.createUser.id")) {
-                _context.next = 10;
+              if (!lodash_1.get(signUpResult, "data.createUser.id")) {
+                _context.next = 9;
                 break;
               }
 
-              _context.next = 8;
+              _context.next = 7;
               return createUserSession({
                 variables: {
                   email: email,
@@ -91881,47 +91933,43 @@ var SignUp = function SignUp(_ref) {
                 }
               });
 
-            case 8:
+            case 7:
               logInResult = _context.sent;
-              dispatch((0, _session.setSession)(logInResult.data.createUserSession));
+              dispatch(session_1.setSession(logInResult.data.createUserSession));
 
-            case 10:
+            case 9:
             case "end":
               return _context.stop();
           }
         }
       }, _callee);
     }));
-
-    return function (_x) {
-      return _ref3.apply(this, arguments);
-    };
-  }());
+  });
   console.log({
     isValid: isValid,
     isSubmitting: isSubmitting
   });
-  return /*#__PURE__*/_react.default.createElement("form", {
+  return react_1.default.createElement("form", {
     onSubmit: onSubmit
-  }, /*#__PURE__*/_react.default.createElement(Label, null, /*#__PURE__*/_react.default.createElement(LabelText, null, "Email"), /*#__PURE__*/_react.default.createElement(_TextInput.default, {
+  }, react_1.default.createElement(Label, null, react_1.default.createElement(LabelText, null, "Email"), react_1.default.createElement(TextInput_1.default, {
     disabled: isSubmitting,
     name: "email",
     type: "email",
     ref: register
-  })), /*#__PURE__*/_react.default.createElement(Label, null, /*#__PURE__*/_react.default.createElement(LabelText, null, "Password"), /*#__PURE__*/_react.default.createElement(_TextInput.default, {
+  })), react_1.default.createElement(Label, null, react_1.default.createElement(LabelText, null, "Password"), react_1.default.createElement(TextInput_1.default, {
     disabled: isSubmitting,
     name: "password",
     type: "password",
     ref: register
-  })), /*#__PURE__*/_react.default.createElement(Label, null, /*#__PURE__*/_react.default.createElement(LabelText, null, "Confirm Password"), /*#__PURE__*/_react.default.createElement(_TextInput.default, {
+  })), react_1.default.createElement(Label, null, react_1.default.createElement(LabelText, null, "Confirm Password"), react_1.default.createElement(TextInput_1.default, {
     disabled: isSubmitting,
     name: "confirmPassword",
     type: "password",
     ref: register
-  })), /*#__PURE__*/_react.default.createElement(SignUpButton, {
+  })), react_1.default.createElement(SignUpButton, {
     type: "submit",
     disabled: isSubmitting || !isValid
-  }, "Sign Up"), " ", /*#__PURE__*/_react.default.createElement(OrLogin, null, "or", " ", /*#__PURE__*/_react.default.createElement("a", {
+  }, "Sign Up"), " ", react_1.default.createElement(OrLogin, null, "or", " ", react_1.default.createElement("a", {
     href: "#",
     onClick: function onClick(evt) {
       evt.preventDefault();
@@ -91930,31 +91978,9 @@ var SignUp = function SignUp(_ref) {
   }, "Login")));
 };
 
-var _default = SignUp;
-exports.default = _default;
-},{"@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","react-hook-form":"../node_modules/react-hook-form/dist/react-hook-form.es.js","react-redux":"../node_modules/react-redux/es/index.js","lodash":"../node_modules/lodash/lodash.js","yup":"../node_modules/yup/es/index.js","#root/store/ducks/session":"store/ducks/session.js","#root/components/shared/TextInput":"components/shared/TextInput.js","./Login":"components/Login.js"}],"components/AccountDetails.js":[function(require,module,exports) {
+exports.default = SignUp;
+},{"@apollo/react-hooks":"../node_modules/@apollo/react-hooks/lib/react-hooks.esm.js","graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","react-hook-form":"../node_modules/react-hook-form/dist/react-hook-form.es.js","react-redux":"../node_modules/react-redux/es/index.js","lodash":"../node_modules/lodash/lodash.js","yup":"../node_modules/yup/es/index.js","../store/ducks/session":"store/ducks/session.ts","../components/shared/TextInput":"components/shared/TextInput.ts","./Login":"components/Login.tsx"}],"components/AccountDetails.tsx":[function(require,module,exports) {
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactRedux = require("react-redux");
-
-var _Login = _interopRequireDefault(require("./Login"));
-
-var _Account = _interopRequireDefault(require("./Account"));
-
-var _SignUp = _interopRequireDefault(require("./SignUp"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -91968,56 +91994,102 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var react_1 = __importStar(require("react"));
+
+var react_redux_1 = require("react-redux");
+
+var Login_1 = __importDefault(require("./Login"));
+
+var Account_1 = __importDefault(require("./Account"));
+
+var SignUp_1 = __importDefault(require("./SignUp"));
+
 var AccountDetails = function AccountDetails() {
-  var session = (0, _reactRedux.useSelector)(function (state) {
+  var session = react_redux_1.useSelector(function (state) {
     return state.session;
   });
 
-  var _useState = (0, _react.useState)(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      isSigningUp = _useState2[0],
-      setIsSigningUp = _useState2[1];
+  var _react_1$useState = react_1.useState(false),
+      _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
+      isSigningUp = _react_1$useState2[0],
+      setIsSigningUp = _react_1$useState2[1];
 
-  return session ? /*#__PURE__*/_react.default.createElement(_Account.default, null) : isSigningUp ? /*#__PURE__*/_react.default.createElement(_SignUp.default, {
+  return session ? react_1.default.createElement(Account_1.default, null) : isSigningUp ? react_1.default.createElement(SignUp_1.default, {
     changeToLogIn: function changeToLogIn() {
       return setIsSigningUp(false);
     }
-  }) : /*#__PURE__*/_react.default.createElement(_Login.default, {
+  }) : react_1.default.createElement(Login_1.default, {
     changeToSignUp: function changeToSignUp() {
       return setIsSigningUp(true);
     }
   });
 };
 
-var _default = AccountDetails;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","./Login":"components/Login.js","./Account":"components/Account.js","./SignUp":"components/SignUp.js"}],"components/Root.js":[function(require,module,exports) {
+exports.default = AccountDetails;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","./Login":"components/Login.tsx","./Account":"components/Account.tsx","./SignUp":"components/SignUp.tsx"}],"components/AccountsTransactionsTable/AccountsTransactionsTable.tsx":[function(require,module,exports) {
 "use strict";
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
 
-var _graphqlTag = _interopRequireDefault(require("graphql-tag"));
+var react_1 = __importDefault(require("react"));
 
-var _react = _interopRequireWildcard(require("react"));
+var AccountsTransactionsTable = function AccountsTransactionsTable(_ref) {
+  var accounts = _ref.accounts;
+  return react_1.default.createElement("div", null, "Table comes here");
+};
 
-var _reactRedux = require("react-redux");
+exports.default = AccountsTransactionsTable;
+},{"react":"../node_modules/react/index.js"}],"components/AccountsTransactionsGraph/AccountsTransactionsGraph.tsx":[function(require,module,exports) {
+"use strict";
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 
-var _graphqlClient = _interopRequireDefault(require("#root/api/graphqlClient"));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _session = require("#root/store/ducks/session");
+var react_1 = __importDefault(require("react"));
 
-var _AccountDetails = _interopRequireDefault(require("./AccountDetails"));
+var AccountsTransactionsGraph = function AccountsTransactionsGraph(_ref) {
+  var accounts = _ref.accounts;
+  return react_1.default.createElement("div", null, "Graph comes here");
+};
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+exports.default = AccountsTransactionsGraph;
+},{"react":"../node_modules/react/index.js"}],"components/Root.tsx":[function(require,module,exports) {
+"use strict";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -92030,6 +92102,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  query($userId: ID!) {\n    userAccounts(userId: $userId) {\n      name\n      currency\n      transactions {\n        date\n        value\n      }\n    }\n  }\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n  {\n    userSession(me: true) {\n      id\n      user {\n        email\n        id\n      }\n    }\n  }\n"]);
@@ -92052,7 +92134,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  flex: 1;\n  margin-right: 1rem;\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: flex-start;\n  flex: 1;\n  margin-right: 1rem;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -92083,44 +92165,101 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Container = _styledComponents.default.div(_templateObject());
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
 
-var Wrapper = _styledComponents.default.div(_templateObject2());
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+  }
+  result["default"] = mod;
+  return result;
+};
 
-var Content = _styledComponents.default.div(_templateObject3());
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var Sidebar = _styledComponents.default.div(_templateObject4());
+var graphql_tag_1 = __importDefault(require("graphql-tag"));
 
-var query = (0, _graphqlTag.default)(_templateObject5());
+var react_1 = __importStar(require("react"));
+
+var react_redux_1 = require("react-redux");
+
+var styled_components_1 = __importDefault(require("styled-components"));
+
+var graphqlClient_1 = __importDefault(require("../api/graphqlClient"));
+
+var session_1 = require("../store/ducks/session");
+
+var AccountDetails_1 = __importDefault(require("./AccountDetails"));
+
+var AccountsTransactionsTable_1 = __importDefault(require("./AccountsTransactionsTable/AccountsTransactionsTable"));
+
+var AccountsTransactionsGraph_1 = __importDefault(require("./AccountsTransactionsGraph/AccountsTransactionsGraph"));
+
+var Container = styled_components_1.default.div(_templateObject());
+var Wrapper = styled_components_1.default.div(_templateObject2());
+var Content = styled_components_1.default.div(_templateObject3());
+var Sidebar = styled_components_1.default.div(_templateObject4());
+var getUserSessionQuery = graphql_tag_1.default(_templateObject5());
+var getAccountsQuery = graphql_tag_1.default(_templateObject6());
 
 var Root = function Root() {
-  var dispatch = (0, _reactRedux.useDispatch)();
+  var dispatch = react_redux_1.useDispatch();
+  var session = react_redux_1.useSelector(function (state) {
+    return state.session;
+  });
 
-  var _useState = (0, _react.useState)(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      initialized = _useState2[0],
-      setInitialized = _useState2[1];
+  var _react_1$useState = react_1.useState(false),
+      _react_1$useState2 = _slicedToArray(_react_1$useState, 2),
+      initialized = _react_1$useState2[0],
+      setInitialized = _react_1$useState2[1];
 
-  (0, _react.useEffect)(function () {
-    _graphqlClient.default.query({
-      query: query
+  var _react_1$useState3 = react_1.useState(null),
+      _react_1$useState4 = _slicedToArray(_react_1$useState3, 2),
+      accounts = _react_1$useState4[0],
+      setAccounts = _react_1$useState4[1];
+
+  react_1.useEffect(function () {
+    graphqlClient_1.default.query({
+      query: getUserSessionQuery
     }).then(function (_ref) {
       var data = _ref.data;
 
       if (data.userSession) {
-        dispatch((0, _session.setSession)(data.userSession));
+        dispatch(session_1.setSession(data.userSession));
       }
 
       setInitialized(true);
     });
   }, []);
+  react_1.useEffect(function () {
+    graphqlClient_1.default.query({
+      query: getAccountsQuery
+    }).then(function (_ref2) {
+      var data = _ref2.data;
+
+      if (data.userAccounts) {
+        setAccounts(data.userAccounts);
+      }
+    });
+  }, [session]);
   if (!initialized) return "Loading...";
-  return /*#__PURE__*/_react.default.createElement(Wrapper, null, /*#__PURE__*/_react.default.createElement(Container, null, /*#__PURE__*/_react.default.createElement(Content, null, "Root"), /*#__PURE__*/_react.default.createElement(Sidebar, null, /*#__PURE__*/_react.default.createElement(_AccountDetails.default, null))));
+  return react_1.default.createElement(Wrapper, null, react_1.default.createElement(Container, null, react_1.default.createElement(Content, null, react_1.default.createElement(AccountsTransactionsTable_1.default, {
+    accounts: accounts
+  }), react_1.default.createElement(AccountsTransactionsGraph_1.default, {
+    accounts: accounts
+  })), react_1.default.createElement(Sidebar, null, react_1.default.createElement(AccountDetails_1.default, null))));
 };
 
-var _default = Root;
-exports.default = _default;
-},{"graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","#root/api/graphqlClient":"api/graphqlClient.js","#root/store/ducks/session":"store/ducks/session.js","./AccountDetails":"components/AccountDetails.js"}],"theme.js":[function(require,module,exports) {
+exports.default = Root;
+},{"graphql-tag":"../node_modules/graphql-tag/src/index.js","react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","../api/graphqlClient":"api/graphqlClient.js","../store/ducks/session":"store/ducks/session.ts","./AccountDetails":"components/AccountDetails.tsx","./AccountsTransactionsTable/AccountsTransactionsTable":"components/AccountsTransactionsTable/AccountsTransactionsTable.tsx","./AccountsTransactionsGraph/AccountsTransactionsGraph":"components/AccountsTransactionsGraph/AccountsTransactionsGraph.tsx"}],"theme.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -92436,7 +92575,7 @@ var GlobalStyle = (0, _styledComponents.createGlobalStyle)(_templateObject());
 }, /*#__PURE__*/_react.default.createElement(_styledComponents.ThemeProvider, {
   theme: theme
 }, /*#__PURE__*/_react.default.createElement(GlobalStyle, null), /*#__PURE__*/_react.default.createElement(_Root.default, null)))), document.getElementById("app"));
-},{"core-js/modules/es6.array.copy-within":"../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill":"../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.find":"../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index":"../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map":"../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from":"../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes":"../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator":"../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.of":"../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.sort":"../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es6.array.species":"../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-primitive":"../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance":"../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name":"../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map":"../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh":"../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh":"../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh":"../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt":"../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32":"../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh":"../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1":"../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround":"../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot":"../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul":"../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p":"../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10":"../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2":"../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign":"../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh":"../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh":"../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc":"../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor":"../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon":"../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite":"../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan":"../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer":"../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer":"../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float":"../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int":"../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign":"../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter":"../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter":"../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries":"../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze":"../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor":"../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors":"../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names":"../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of":"../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter":"../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter":"../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions":"../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string":"../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is":"../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen":"../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys":"../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal":"../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values":"../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise":"../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally":"../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply":"../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor":"../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags":"../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match":"../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace":"../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split":"../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search":"../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string":"../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set":"../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol":"../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator":"../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor":"../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big":"../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink":"../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold":"../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at":"../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with":"../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed":"../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor":"../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize":"../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point":"../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes":"../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics":"../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator":"../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link":"../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start":"../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw":"../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat":"../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small":"../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with":"../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike":"../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub":"../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup":"../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left":"../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right":"../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer":"../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map":"../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set":"../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers":"../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate":"../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable":"../node_modules/core-js/modules/web.dom.iterable.js","regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","react":"../node_modules/react/index.js","react-apollo":"../node_modules/react-apollo/lib/react-apollo.esm.js","react-dom":"../node_modules/react-dom/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","react-redux":"../node_modules/react-redux/es/index.js","./store":"store/index.js","#root/api/graphqlClient":"api/graphqlClient.js","./components/Root":"components/Root.js","./theme":"theme.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"core-js/modules/es6.array.copy-within":"../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill":"../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.find":"../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index":"../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map":"../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from":"../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes":"../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator":"../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.of":"../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.sort":"../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es6.array.species":"../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-primitive":"../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance":"../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name":"../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map":"../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh":"../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh":"../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh":"../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt":"../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32":"../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh":"../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1":"../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround":"../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot":"../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul":"../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p":"../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10":"../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2":"../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign":"../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh":"../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh":"../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc":"../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor":"../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon":"../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite":"../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan":"../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer":"../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer":"../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float":"../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int":"../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign":"../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter":"../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter":"../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries":"../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze":"../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor":"../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors":"../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names":"../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of":"../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter":"../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter":"../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions":"../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string":"../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is":"../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen":"../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys":"../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal":"../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values":"../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise":"../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally":"../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply":"../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor":"../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags":"../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match":"../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace":"../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split":"../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search":"../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string":"../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set":"../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol":"../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator":"../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor":"../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big":"../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink":"../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold":"../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at":"../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with":"../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed":"../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor":"../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize":"../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point":"../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes":"../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics":"../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator":"../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link":"../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start":"../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw":"../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat":"../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small":"../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with":"../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike":"../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub":"../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup":"../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left":"../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right":"../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer":"../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map":"../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set":"../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers":"../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate":"../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable":"../node_modules/core-js/modules/web.dom.iterable.js","regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","react":"../node_modules/react/index.js","react-apollo":"../node_modules/react-apollo/lib/react-apollo.esm.js","react-dom":"../node_modules/react-dom/index.js","styled-components":"../node_modules/styled-components/dist/styled-components.browser.esm.js","react-redux":"../node_modules/react-redux/es/index.js","./store":"store/index.ts","#root/api/graphqlClient":"api/graphqlClient.js","./components/Root":"components/Root.tsx","./theme":"theme.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -92464,7 +92603,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39435" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45883" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

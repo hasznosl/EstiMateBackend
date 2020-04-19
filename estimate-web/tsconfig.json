@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "outDir": "./built",
+    "allowJs": true,
+    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true
+  },
+  "include": ["./src/**/*"]
+}

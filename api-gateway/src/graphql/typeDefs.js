@@ -8,6 +8,7 @@ const typeDefs = gql`
     name: String
     email: String!
     birthDay: String
+    accounts: [UserAccount!]!
   }
 
   type CreateUserResult {
@@ -20,6 +21,30 @@ const typeDefs = gql`
     expiresAt: Date!
     id: ID!
     user: User!
+  }
+
+  type AccountTransaction {
+    id: ID!
+    accountId: ID!
+    name: String!
+    currency: String!
+    currencyDefaultExchangeRate: String!
+    description: String!
+    date: Date!
+    value: String!
+    createdAt: Date!
+  }
+
+  type UserAccount {
+    id: ID!
+    name: String!
+    userId: ID!
+    currency: String!
+    currencyDefaultExchangeRate: String!
+    transactions: [AccountTransaction!]!
+    description: String
+    deteriorationConstant: String!
+    createdAt: Date!
   }
 
   type Mutation {
@@ -39,6 +64,7 @@ const typeDefs = gql`
   type Query {
     users: [User!]!
     userSession(me: Boolean!): UserSession
+    userAccounts(userId: ID!): [UserAccount!]!
   }
 `;
 

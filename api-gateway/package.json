@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "watch": "CHOKIDAR_USEPOLLING=true babel-watch -L  src/index.js"
+    "watch": " babel-watch -L  src/index.js"
   },
   "devDependencies": {
     "babel-watch": "^7.0.0"

@@ -3,17 +3,20 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
 
-import usersResolver from "#root/graphql/resolvers/query/users";
-import createUserResolver from "#root/graphql/resolvers/mutation/createUser";
-import createUserSessionResolver from "#root/graphql/resolvers/mutation/createUserSession";
-import deleteUserSessionResolver from "#root/graphql/resolvers/mutation/deleteUserSession";
-import typeDefs from "#root/graphql/typeDefs";
-import accessEnv from "#root/helpers/accessEnv";
-import UserSession from "#root/graphql/resolvers/UserSession";
+import usersResolver from "../graphql/resolvers/query/users";
+import createUserResolver from "../graphql/resolvers/mutation/createUser";
+import createUserSessionResolver from "../graphql/resolvers/mutation/createUserSession";
+import deleteUserSessionResolver from "../graphql/resolvers/mutation/deleteUserSession";
+import typeDefs from "../graphql/typeDefs";
+import accessEnv from "../helpers/accessEnv";
+import UserSession from "../graphql/resolvers/UserSession";
+import AccountTransactions from "../graphql/resolvers/AccountTransactions";
+import UserAccounts from "../graphql/resolvers/UserAccounts";
 
 import formatGraphQLErrors from "./formatGraphQLErrors";
 import injectSession from "./injectSession";
 import userSessionResolver from "../graphql/resolvers/query/userSession";
+import userAccountsResolver from "../graphql/resolvers/query/userAccounts";
 
 const PORT = accessEnv("PORT", 7000);
 const apolloServer = new ApolloServer({
@@ -23,6 +26,7 @@ const apolloServer = new ApolloServer({
     Query: {
       users: usersResolver,
       userSession: userSessionResolver,
+      userAccounts: userAccountsResolver,
     },
     Mutation: {
       createUser: createUserResolver,
@@ -30,6 +34,8 @@ const apolloServer = new ApolloServer({
       deleteUserSession: deleteUserSessionResolver,
     },
     UserSession,
+    UserAccount: AccountTransactions,
+    User: UserAccounts,
   },
   typeDefs,
   playground: {
