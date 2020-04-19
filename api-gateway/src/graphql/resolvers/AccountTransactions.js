@@ -1,10 +1,12 @@
-import { fetchTransactions } from "#root/adapters/accountsService";
+import { fetchTransactions } from "../../adapters/accountsService";
 
 const AccountTransactions = {
   transactions: async (userAccount) => {
-    return await fetchTransactions({
+    const transactions = await fetchTransactions({
       accountId: userAccount.id,
     });
+
+    return transactions;
   },
 };
 

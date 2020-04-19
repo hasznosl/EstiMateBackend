@@ -15,5 +15,6 @@ export const fetchTransactions = async ({ accountId }) => {
       `${ACCOUNTS_SERVICE_URI}/accounts/${accountId}/transactions`
     )
     .json();
+
   return body;
 };

@@ -8,6 +8,7 @@ const typeDefs = gql`
     name: String
     email: String!
     birthDay: String
+    accounts: [UserAccount!]!
   }
 
   type CreateUserResult {
@@ -22,7 +23,7 @@ const typeDefs = gql`
     user: User!
   }
 
-  type Transaction {
+  type AccountTransaction {
     id: ID!
     accountId: ID!
     name: String!
@@ -37,9 +38,10 @@ const typeDefs = gql`
   type UserAccount {
     id: ID!
     name: String!
+    userId: ID!
     currency: String!
     currencyDefaultExchangeRate: String!
-    transactions: [Transaction!]!
+    transactions: [AccountTransaction!]!
     description: String
     deteriorationConstant: String!
     createdAt: Date!

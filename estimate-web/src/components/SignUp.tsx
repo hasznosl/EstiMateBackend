@@ -93,8 +93,6 @@ const SignUp = ({ changeToLogIn }: Props) => {
     }
   );
 
-  console.log({ isValid, isSubmitting });
-
   return (
     <form onSubmit={onSubmit}>
       <Label>
