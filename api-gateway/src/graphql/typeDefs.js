@@ -26,7 +26,6 @@ const typeDefs = gql`
   type AccountTransaction {
     id: ID!
     accountId: ID!
-    name: String!
     currency: String!
     currencyDefaultExchangeRate: String!
     description: String!
@@ -57,6 +56,26 @@ const typeDefs = gql`
       email: String!
       password: String!
     ): UserSession!
+
+    createUserAccount(
+      name: String!
+      userId: ID!
+      currency: String!
+      currencyDefaultExchangeRate: String!
+      description: String!
+      deteriorationConstant: String!
+    ): UserAccount!
+
+    createAccountTransaction(
+      accountId: ID!
+      description: String!
+      date: Date!
+      value: String!
+    ): AccountTransaction!
+
+    deleteUserAccount(accountId: ID!): Boolean!
+
+    deleteAccountTransaction(transactionId: ID!): Boolean!
 
     deleteUserSession(sessionId: ID!): Boolean!
   }

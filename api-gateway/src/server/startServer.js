@@ -7,6 +7,10 @@ import usersResolver from "../graphql/resolvers/query/users";
 import createUserResolver from "../graphql/resolvers/mutation/createUser";
 import createUserSessionResolver from "../graphql/resolvers/mutation/createUserSession";
 import deleteUserSessionResolver from "../graphql/resolvers/mutation/deleteUserSession";
+import createUserAccountResolver from "../graphql/resolvers/mutation/createUserAccount";
+import deleteUserAccountResolver from "../graphql/resolvers/mutation/deleteUserAccount";
+import createAccountTransactionResolver from "../graphql/resolvers/mutation/createAccountTransaction";
+import deleteAccountTransactionResolver from "../graphql/resolvers/mutation/deleteAccountTransaction";
 import typeDefs from "../graphql/typeDefs";
 import accessEnv from "../helpers/accessEnv";
 import UserSession from "../graphql/resolvers/UserSession";
@@ -31,6 +35,10 @@ const apolloServer = new ApolloServer({
     Mutation: {
       createUser: createUserResolver,
       createUserSession: createUserSessionResolver,
+      createUserAccount: createUserAccountResolver,
+      createAccountTransaction: createAccountTransactionResolver,
+      deleteUserAccount: deleteUserAccountResolver,
+      deleteAccountTransaction: deleteAccountTransactionResolver,
       deleteUserSession: deleteUserSessionResolver,
     },
     UserSession,

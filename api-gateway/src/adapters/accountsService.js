@@ -18,3 +18,62 @@ export const fetchTransactions = async ({ accountId }) => {
 
   return body;
 };
+
+export const createUserAccount = async ({
+  name,
+  userId,
+  currency,
+  currencyDefaultExchangeRate,
+  description,
+  deteriorationConstant,
+}) => {
+  const body = await got
+    .post(`${ACCOUNTS_SERVICE_URI}/accounts`, {
+      json: {
+        name,
+        userId,
+        currency,
+        currencyDefaultExchangeRate,
+        description,
+        deteriorationConstant,
+      },
+    })
+    .json();
+
+  return body;
+};
+
+export const deleteUserAccount = async ({ accountId }) => {
+  const body = await got
+    .delete(`${ACCOUNTS_SERVICE_URI}/accounts/${accountId}`)
+    .json();
+
+  return body;
+};
+
+export const createAccountTransaction = async ({
+  accountId,
+  description,
+  date,
+  value,
+}) => {
+  const body = await got
+    .post(`${ACCOUNTS_SERVICE_URI}/transactions`, {
+      json: { accountId, description, date, value },
+    })
+    .json();
+
+  return body;
+};
+
+export const deleteAccountTransaction = async ({
+  transactionId,
+}) => {
+  const body = await got
+    .delete(
+      `${ACCOUNTS_SERVICE_URI}/transactions/${transactionId}`
+    )
+    .json();
+
+  return body;
+};

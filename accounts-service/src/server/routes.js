@@ -173,6 +173,46 @@ const setupRoutes = (app) => {
       }
     }
   );
+
+  app.delete(
+    "/transactions/:transactionId",
+    async (req, res, next) => {
+      try {
+        const transaction = await Transaction.findByPk(
+          req.params.transactionId
+        );
+
+        if (!transaction)
+          return next(new Error("Invalid transaction ID!"));
+
+        await transaction.destroy();
+
+        return res.end();
+      } catch (e) {
+        return next(e);
+      }
+    }
+  );
+
+  app.delete(
+    "/accounts/:accountId",
+    async (req, res, next) => {
+      try {
+        const account = await Account.findByPk(
+          req.params.accountId
+        );
+
+        if (!account)
+          return next(new Error("Invalid account ID!"));
+
+        await account.destroy();
+
+        return res.end();
+      } catch (e) {
+        return next(e);
+      }
+    }
+  );
 };
 
 export default setupRoutes;
