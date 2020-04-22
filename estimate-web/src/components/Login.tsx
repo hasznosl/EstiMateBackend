@@ -7,26 +7,11 @@ import { useDispatch } from "react-redux";
 import { get } from "lodash";
 
 import { setSession } from "../store/ducks/session";
-import TextInput from "../components/shared/TextInput";
-
-const Label = styled.label`
-  display: block;
-
-  :not(:first-child) {
-    margin-top: 0.75rem;
-  }
-`;
+import LabeledTextInput from "./shared/LabeledTextInput";
 
 const OrSignUp = styled.span`
   font-size: 0.9rem;
 `;
-
-const LabelText = styled.strong`
-display: block
-font-size: .9rem;
-margin-bottom: .25rem;
-`;
-
 const LoginButton = styled.button`
   display: inline-block;
   margin-top: 0.5rem;
@@ -72,24 +57,20 @@ const Login = ({ changeToSignUp }: Props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Label>
-        <LabelText>Email</LabelText>
-        <TextInput
-          disabled={isSubmitting}
-          name="email"
-          type="email"
-          ref={register}
-        />
-      </Label>
-      <Label>
-        <LabelText>Password</LabelText>
-        <TextInput
-          disabled={isSubmitting}
-          name="password"
-          type="password"
-          ref={register}
-        />
-      </Label>
+      <LabeledTextInput
+        labelText="Email"
+        disabled={isSubmitting}
+        name="email"
+        type="email"
+        passedInRef={register}
+      />
+      <LabeledTextInput
+        labelText="Password"
+        disabled={isSubmitting}
+        name="password"
+        type="password"
+        passedInRef={register}
+      />
       <LoginButton type="submit" disabled={isSubmitting}>
         Login
       </LoginButton>{" "}

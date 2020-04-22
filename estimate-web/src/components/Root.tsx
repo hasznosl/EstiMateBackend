@@ -11,13 +11,14 @@ import {
 import AccountDetails from "./AccountDetails";
 import AccountsTransactionsTable from "./AccountsTransactionsTable/AccountsTransactionsTable";
 import AccountsTransactionsGraph from "./AccountsTransactionsGraph/AccountsTransactionsGraph";
+import EditColumn from "./AccountsTransactionsTable/EditColumn";
 import { DefaultRootStore } from "../store/ducks";
 
 const Container = styled.div`
   display: flex;
   flex-flow: row nowrap;
   margin: 0 auto;
-  width: 80rem;
+  width: 100%;
 `;
 
 const Wrapper = styled.div`
@@ -25,6 +26,7 @@ const Wrapper = styled.div`
   height: 100%;
   padding: 1rem;
   width: 100%;
+  background-color: ${(props) => props.theme.background};
 `;
 
 const Content = styled.div`
@@ -56,11 +58,13 @@ const getUserSessionQuery = gql`
 const getAccountsQuery = gql`
   query($userId: ID!) {
     userAccounts(userId: $userId) {
+      id
       name
       currency
       transactions {
         date
         value
+        description
       }
     }
   }
@@ -74,6 +78,9 @@ const Root = () => {
 
   const [initialized, setInitialized] = useState(false);
   const [accounts, setAccounts] = useState(null);
+  const [clickedAccount, setClickedAccount] = useState(
+    null
+  );
 
   useEffect(() => {
     graphqlClient
@@ -107,7 +114,12 @@ const Root = () => {
     <Wrapper>
       <Container>
         <Content>
-          <AccountsTransactionsTable accounts={accounts} />
+          <EditColumn account={clickedAccount} />
+          <AccountsTransactionsTable
+            accounts={accounts}
+            setClickedAccount={setClickedAccount}
+            clickedAccount={clickedAccount}
+          />
           <AccountsTransactionsGraph accounts={accounts} />
         </Content>
         <Sidebar>

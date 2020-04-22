@@ -41,7 +41,7 @@ const typeDefs = gql`
     currency: String!
     currencyDefaultExchangeRate: String!
     transactions: [AccountTransaction!]!
-    description: String
+    description: String!
     deteriorationConstant: String!
     createdAt: Date!
   }
