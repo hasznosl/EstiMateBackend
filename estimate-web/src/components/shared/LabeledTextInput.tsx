@@ -30,6 +30,9 @@ interface Props {
   passedInRef?: any;
   value?: string;
   hidden?: boolean;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
 }
 
 const LabeledTextInput = ({
@@ -40,6 +43,7 @@ const LabeledTextInput = ({
   passedInRef,
   value,
   hidden,
+  onChange,
 }: Props) => (
   <Label hidden={hidden}>
     <LabelText>{labelText}</LabelText>
@@ -48,7 +52,8 @@ const LabeledTextInput = ({
       name={name}
       type={type}
       {...(passedInRef ? { ref: passedInRef } : {})}
-      {...(value ? { value } : {})}
+      {...(typeof value === "string" ? { value } : {})}
+      {...(onChange ? { onChange } : {})}
     />
   </Label>
 );

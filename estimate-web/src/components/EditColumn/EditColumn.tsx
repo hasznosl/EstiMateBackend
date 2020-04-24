@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import LabeledTextInput, {
-  LabelText,
-} from "../shared/LabeledTextInput";
+import { LabelText } from "../shared/LabeledTextInput";
 import Radio, { RadioProps } from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import { withStyles } from "@material-ui/core/styles";
-import { useForm } from "react-hook-form";
 import { useMutation } from "react-apollo";
 import gql from "graphql-tag";
+import AdjustForm from "./AdjustForm";
+import AddForm from "./AddForm";
+import { DocumentNode } from "graphql";
 
 const BlackRadio = withStyles({
   root: {
@@ -44,18 +44,15 @@ const Step = styled.div`
   padding: 10px 0px;
 `;
 
-const SubmitButton = styled.button`
-  display: inline-block;
-  margin-top: 0.5rem;
-`;
-
 interface Props {
   account: Account | null;
+  getAccountsQuery: DocumentNode;
+  userId: string;
 }
 
 export const createTransactionMutation = gql`
   mutation(
-    $accountId: String!
+    $accountId: ID!
     $date: Date!
     $value: String!
     $description: String!
@@ -73,33 +70,21 @@ export const createTransactionMutation = gql`
   }
 `;
 
-const EditColumn = ({ account }: Props) => {
+const EditColumn = ({
+  account,
+  getAccountsQuery,
+  userId,
+}: Props) => {
   const [manner, setManner] = useState<"adjust" | "add">(
     "adjust"
   );
-  const {
-    formState: { isSubmitting },
-    handleSubmit,
-    register,
-  } = useForm();
 
   const [createTransaction] = useMutation(
-    createTransactionMutation
-  );
-
-  const onSubmit = handleSubmit(
-    async ({ date, value, dontincludethis }) => {
-      console.log({ date, value, dontincludethis });
-
-      const result = await createTransaction({
-        variables: {
-          date,
-          value,
-          description: "inline for now",
-          accountId: account.id,
-        },
-      });
-      console.log({ result });
+    createTransactionMutation,
+    {
+      refetchQueries: [
+        { query: getAccountsQuery, variables: { userId } },
+      ],
     }
   );
 
@@ -110,7 +95,7 @@ const EditColumn = ({ account }: Props) => {
   };
 
   return account ? (
-    <Container>
+    <Container key={manner}>
       <Title>Add a transaction to {account.name}</Title>
       <Step>
         <FormControl component="fieldset">
@@ -134,51 +119,17 @@ const EditColumn = ({ account }: Props) => {
           </RadioGroup>
         </FormControl>
       </Step>
-      <form onSubmit={onSubmit}>
-        <Step>
-          <LabeledTextInput
-            disabled={false}
-            labelText={
-              manner === "adjust" ? "adjust to" : "amount"
-            }
-            name="value"
-            type="number"
-            passedInRef={register}
-          />
-          {manner === "adjust" ? (
-            <>
-              <LabeledTextInput
-                disabled={true}
-                labelText="date"
-                name="dontincludethis"
-                type="text"
-                value="today"
-              />
-              <LabeledTextInput
-                hidden
-                disabled={true}
-                labelText="date"
-                name="date"
-                type="text"
-                passedInRef={register}
-                value={new Date().toString()}
-              />
-            </>
-          ) : (
-            <LabeledTextInput
-              disabled={false}
-              labelText="date"
-              name="date"
-              type="text"
-              passedInRef={register}
-            />
-          )}
-        </Step>
-
-        <SubmitButton type="submit" disabled={isSubmitting}>
-          Create
-        </SubmitButton>
-      </form>
+      {manner === "adjust" ? (
+        <AdjustForm
+          accountId={account.id}
+          createTransaction={createTransaction}
+        />
+      ) : (
+        <AddForm
+          accountId={account.id}
+          createTransaction={createTransaction}
+        />
+      )}
     </Container>
   ) : (
     <Container />

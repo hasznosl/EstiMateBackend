@@ -143,7 +143,7 @@ const setupRoutes = (app) => {
         paramNames: [
           "date",
           "accountId",
-          "descritpion",
+          "description",
           "value",
         ],
         url: transactionsUrl,

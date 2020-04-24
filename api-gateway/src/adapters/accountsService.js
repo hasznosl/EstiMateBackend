@@ -57,12 +57,12 @@ export const createAccountTransaction = async ({
   date,
   value,
 }) => {
+  console.log({ description });
   const body = await got
     .post(`${ACCOUNTS_SERVICE_URI}/transactions`, {
       json: { accountId, description, date, value },
     })
     .json();
-
   return body;
 };
 
