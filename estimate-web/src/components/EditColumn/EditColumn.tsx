@@ -95,7 +95,7 @@ const EditColumn = ({
   };
 
   return account ? (
-    <Container key={manner}>
+    <Container>
       <Title>Add a transaction to {account.name}</Title>
       <Step>
         <FormControl component="fieldset">
