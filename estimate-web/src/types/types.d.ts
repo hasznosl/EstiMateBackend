@@ -1,7 +1,9 @@
 export interface Transaction {
-  date: Date;
+  date: string;
   value: string;
+  currency: string;
   description: string;
+  currencyDefaultExchangeRate: string;
 }
 
 export interface Account {
