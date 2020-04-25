@@ -40,8 +40,6 @@ const Account = () => {
     (state) => state.session
   );
 
-  console.log({ session });
-
   return (
     <Container>
       Logged in as <Email>{session.user.email}</Email>

@@ -47,7 +47,6 @@ const Root = () => {
 
   useEffect(() => {
     if (userSessionData) {
-      console.log({ userSessionData });
       dispatch(setSession(userSessionData.userSession));
     }
   }, [userSessionData]);
@@ -57,7 +56,6 @@ const Root = () => {
   if (userSessionLoading)
     return <div>user session loading...</div>;
 
-  console.log({ userSessionData });
   return (
     <Wrapper>
       {userSessionData && userSessionData.userSession && (
