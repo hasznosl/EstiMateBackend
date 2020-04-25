@@ -33,7 +33,7 @@ const AddForm = ({
 
   const onSubmit = handleSubmit(
     async ({ date, value, description }) => {
-      const result = await createTransaction({
+      await createTransaction({
         variables: {
           date,
           value,
@@ -41,7 +41,6 @@ const AddForm = ({
           accountId,
         },
       });
-      console.log({ result });
     }
   );
 

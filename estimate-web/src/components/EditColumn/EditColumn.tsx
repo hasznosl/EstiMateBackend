@@ -27,9 +27,11 @@ const BlackRadio = withStyles({
 const Container = styled.div`
   padding: 10px;
   display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
   flex-direction: column;
   width: 200px;
-  height: 400px;
+  height: 450px;
   border: 1px solid black;
 `;
 

@@ -5,6 +5,24 @@ import { useDispatch } from "react-redux";
 import { setSession } from "../store/ducks/session";
 import { useQuery } from "react-apollo";
 import Dashboard from "./Dashboard";
+import AccountDetails from "./AccountDetails";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 1rem;
+  width: 100%;
+  background-color: ${(props) => props.theme.background};
+`;
+
+const Sidebar = styled.div`
+  flex-grow: 1;
+  flex-shrink: 1;
+  width: 10rem;
+`;
 
 const getUserSessionQuery = gql`
   {
@@ -29,7 +47,8 @@ const Root = () => {
 
   useEffect(() => {
     if (userSessionData) {
-      dispatch(setSession(userSessionData));
+      console.log({ userSessionData });
+      dispatch(setSession(userSessionData.userSession));
     }
   }, [userSessionData]);
 
@@ -38,10 +57,18 @@ const Root = () => {
   if (userSessionLoading)
     return <div>user session loading...</div>;
 
+  console.log({ userSessionData });
   return (
-    <Dashboard
-      userId={userSessionData.userSession.user.id}
-    />
+    <Wrapper>
+      {userSessionData && userSessionData.userSession && (
+        <Dashboard
+          userId={userSessionData.userSession.user.id}
+        />
+      )}
+      <Sidebar>
+        <AccountDetails />
+      </Sidebar>
+    </Wrapper>
   );
 };
 

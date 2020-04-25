@@ -40,10 +40,11 @@ const Account = () => {
     (state) => state.session
   );
 
+  console.log({ session });
+
   return (
     <Container>
-      Logged in as{" "}
-      <Email>{session.userSession.user.email}</Email>
+      Logged in as <Email>{session.user.email}</Email>
       <LogoutLink
         onClick={(evt) => {
           evt.preventDefault();

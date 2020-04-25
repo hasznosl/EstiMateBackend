@@ -34,7 +34,7 @@ const AdjustForm = ({
 
   const onSubmit = handleSubmit(
     async ({ date, value, description }) => {
-      const result = await createTransaction({
+      await createTransaction({
         variables: {
           date,
           value,
@@ -42,7 +42,6 @@ const AdjustForm = ({
           accountId,
         },
       });
-      console.log({ result });
     }
   );
 

@@ -1,12 +1,18 @@
 import React from "react";
-import { Accounts } from "../../types/types";
+import { Account } from "../../types/types";
+import styled from "styled-components";
 
 interface Props {
-  accounts: Accounts;
+  accounts: Account[];
 }
 
+const Container = styled.div`
+  flex-grow: 3;
+  flex-shrink: 3;
+`;
+
 const AccountsTransactionsGraph = ({ accounts }: Props) => (
-  <div>Graph comes here</div>
+  <Container>Graph comes here</Container>
 );
 
 export default AccountsTransactionsGraph;

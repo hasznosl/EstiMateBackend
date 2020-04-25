@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import EditColumn from "./EditColumn/EditColumn";
 import AccountsTransactionsGraph from "./AccountsTransactionsGraph/AccountsTransactionsGraph";
-import AccountDetails from "./AccountDetails";
 import AccountsTransactionsTable from "./AccountsTransactionsTable/AccountsTransactionsTable";
 import { useQuery } from "react-apollo";
 import gql from "graphql-tag";
@@ -13,17 +12,7 @@ interface Props {
 
 const Container = styled.div`
   display: flex;
-  flex-flow: row nowrap;
-  margin: 0 auto;
-  width: 100%;
-`;
-
-const Wrapper = styled.div`
-  box-sizing: border-box;
-  height: 100%;
-  padding: 1rem;
-  width: 100%;
-  background-color: ${(props) => props.theme.background};
+  flex-grow: 8;
 `;
 
 const Content = styled.div`
@@ -33,11 +22,6 @@ const Content = styled.div`
   align-items: flex-start;
   flex: 1;
   margin-right: 1rem;
-`;
-
-const Sidebar = styled.div`
-  flex: 0 auto;
-  width: 10rem;
 `;
 
 const getAccountsQuery = gql`
@@ -71,28 +55,23 @@ const Dashboard = ({ userId }: Props) => {
   if (accountsError) return <div>Accounts error</div>;
 
   return (
-    <Wrapper>
-      <Container>
-        <Content>
-          <EditColumn
-            account={clickedAccount}
-            getAccountsQuery={getAccountsQuery}
-            userId={userId}
-          />
-          <AccountsTransactionsTable
-            accounts={accountsData.userAccounts}
-            setClickedAccount={setClickedAccount}
-            clickedAccount={clickedAccount}
-          />
-          <AccountsTransactionsGraph
-            accounts={accountsData.userAccounts}
-          />
-        </Content>
-        <Sidebar>
-          <AccountDetails />
-        </Sidebar>
-      </Container>
-    </Wrapper>
+    <Container>
+      <Content>
+        <EditColumn
+          account={clickedAccount}
+          getAccountsQuery={getAccountsQuery}
+          userId={userId}
+        />
+        <AccountsTransactionsTable
+          accounts={accountsData.userAccounts}
+          setClickedAccount={setClickedAccount}
+          clickedAccount={clickedAccount}
+        />
+        <AccountsTransactionsGraph
+          accounts={accountsData.userAccounts}
+        />
+      </Content>
+    </Container>
   );
 };
 
