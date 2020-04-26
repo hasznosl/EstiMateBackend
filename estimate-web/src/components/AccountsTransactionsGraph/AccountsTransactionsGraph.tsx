@@ -2,6 +2,8 @@ import React from "react";
 import { Account } from "../../types/types";
 import styled from "styled-components";
 import { createSummedTransactionsFromTransactions } from "../../legacyCode/createSummedTransactionsFromTransactions";
+import { Line } from "react-chartjs-2";
+import { isFirstDayOfMonth } from "date-fns";
 
 interface Props {
   accounts: Account[];
@@ -19,17 +21,24 @@ const AccountsTransactionsGraph = ({ accounts }: Props) => {
     { accounts }
   );
 
+  const xCoordinates = Object.keys(
+    summedTransactions
+  ).filter((date) => isFirstDayOfMonth(new Date(date)));
+
+  const yCoordinates = xCoordinates.map(
+    (date) => summedTransactions[date]
+  );
+
   return (
     <Container>
-      <div>Graph will come here</div>
-      {Object.keys(summedTransactions).map(
-        // temporarily ok
-        (date, index) => (
-          <div key={index}>
-            {date} - {summedTransactions[date]}
-          </div>
-        )
-      )}
+      <Line
+        data={{
+          labels: xCoordinates,
+          datasets: [
+            { data: yCoordinates, label: "aggregate" },
+          ],
+        }}
+      />
     </Container>
   );
 };
